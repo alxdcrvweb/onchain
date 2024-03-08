@@ -1,0 +1,90 @@
+@import "../styles/_vars.sass";
+
+.main__page {
+  display: flex;
+  flex-direction: column;
+
+  @media (max-width: 700px) {
+    width: 100%;
+    margin-bottom: 50px;
+  }
+}
+.chat__page {
+  display: flex;
+  flex-direction: column;
+  width: 616px;
+  height: calc(100vh - 75px);
+  overflow: hidden;
+  @media (max-width: 616px) {
+    max-width: calc(100%);
+    margin-top: 0px;
+
+    margin-left: 0px;
+  }
+}
+.post__page {
+  display: flex;
+  flex-direction: column;
+  width: 616px;
+  height: calc(100vh - 75px);
+  @media (max-width: 750px) {
+    max-width: calc(100%);
+    margin-top: -70px;
+
+    margin-left: 0px;
+  }
+}
+.community__page {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 75px);
+  @media (max-width: 616px) {
+    max-width: calc(100%);
+    margin-top: 24px;
+    margin-bottom: 50px;
+  }
+}
+.explore__page {
+  display: flex;
+  flex-direction: column;
+  width: 616px;
+  min-height: calc(100vh - 75px);
+  @media (max-width: 616px) {
+    max-width: calc(100% - 16px);
+    margin-top: 24px;
+    margin-left: 8px;
+    margin-bottom: 50px;
+  }
+}
+.explore__row {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  font-size: 16px;
+  color: var(--text-main);
+  font-family: "DMSans";
+  align-items: center;
+  margin-top: 30px;
+  input {
+    font-size: 16px;
+    font-family: "DMSans";
+  }
+  div {
+    margin-left: 10px;
+  }
+}
+.feed__type {
+  margin-top: 48px;
+  margin-bottom: 24px;
+  @media (max-width: 600px) {
+    margin-top: -12px;
+    margin-bottom: 12px;
+  }
+}
+.finance__page {
+  min-height: calc(100vh - 75px);
+  @media (max-width: 616px) {
+    margin-bottom: 50px;
+    min-height: calc(100vh - 150px);
+  }
+}

@@ -1,0 +1,113 @@
+@use "sass:math";
+@use "sass:color";
+@import "helpers";
+@import "fonts";
+@import "libs";
+@import "vars";
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+html {
+  overflow-x: hidden;
+  font-family: "Inter";
+  // background: #131414;
+  a {
+    color: black;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  &:before {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+  &:after {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+}
+a {
+  text-decoration: none;
+  color: auto;
+}
+
+:root {
+  --background: #f8f8f8;
+  --background-row: #f8f8f8;
+  --background-pages: white;
+  --text-main: #151614;
+  --text-shade: #676766 !important;
+  --text-shade: #676766 !important;
+  --hover: #f1f1f1;
+  --header: rgba(252, 252, 253, 1);
+  --header-bottom: #f4f5f6;
+  --border: #e2e3e2;
+  --msg-bg: #f1f1f1;
+  --name: #676766;
+}
+
+.dark-mode {
+  --background: #131414;
+  --background-row: #1c1d1b;
+  --background-row-hover: #232422;
+  --background-pages: #161717;
+  --text-main: white;
+  --text-shade: #adadad;
+  --text-post: #cfcfcf;
+  --hover: #232422;
+  --header: #1c1d1b;
+  --header-bottom: #232422;
+  --msg-bg: #1c1d1b;
+  --name: #5d5fef;
+  --border: #313230;
+}
+.bg-mob {
+  margin-top: -40px;
+}
+.logo {
+  margin-top: -20px;
+  @media (max-width: 632px) {
+    margin-top: 0px;
+    width: 100%;
+    margin-left: 24px;
+    display: flex;
+    justify-content: center;
+  }
+}
+.bg {
+  @media (max-width: 632px) {
+    object-fit: cover;
+    object-position: left;
+    
+  }
+}
+.explore {
+  font-weight: 300;
+  @media (max-height: 700px) {
+    margin-top: 30px !important;
+  }
+}
+.title {
+  font-family: "CormorantGaramond";
+}
+.text {
+  font-family: "Inconsolata";
+}
+.social {
+  border-radius: 8px;
+  background: rgba(243, 226, 217, 0.59);
+  box-shadow: 0px 4px 6.1px 0px rgba(0, 0, 0, 0.13);
+  width: 36px;
+  height: 36px;
+}
