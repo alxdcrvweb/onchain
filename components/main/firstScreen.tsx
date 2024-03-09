@@ -6,7 +6,7 @@ const FirstScreen: React.FC = () => {
       <h1 className={styles.first__title}>$ONCHAIN IS THE NEXT ONLINE </h1>
       <div className={styles.first__text}>
         $onchain is an ERC-20 token on Base, launched in March 2024. $onchain
-        aims to support base builders and onchain contributors with airdrop.
+        aims to support base builders and onchain contributors.
         <div style={{marginTop:'20px'}}>
           If you’re doing things onchain — no matter how small they are — you’re
           eligible for $onchain airdrop. Even owning a ens or a freemint base

@@ -1,7 +1,11 @@
 import React from "react";
 import styles from "./header.module.scss";
-const Header: React.FC = () => {
+const Header: React.FC = ({ scrollRef }: any) => {
   const [menu, setMenu] = React.useState(false);
+  const scrollTo = () => {
+    setMenu(false);
+    scrollRef.current.scrollIntoView({ behavior: "smooth" });
+  };
   return (
     <header className={styles.header}>
       {menu && (
@@ -18,22 +22,33 @@ const Header: React.FC = () => {
             src="/cross.svg"
           />
           <div className={styles.header__links__mob}>
-            <a href="#">Warpcast</a>
-            <a href="#">Airdrop</a>
-            <a href="#">Buy $onchain</a>
+            <a
+              href="https://warpcast.com/~/channel/onchaincoin"
+              target="_blank"
+            >
+              Warpcast
+            </a>
+            <a onClick={scrollTo}>Airdrop</a>
+            <a href="#" target="_blank">
+              Buy $onchain
+            </a>
           </div>
         </div>
       )}
       <img className={styles.header__logo} src="../logo.svg" />
       <img className={styles.header__mob} src="../logo__mob.svg" />
       <div className={styles.header__links}>
-        <a href="#">Warpcast</a>
-        <a href="#">Airdrop</a>
-        <a href="#">Buy $onchain</a>
+        <a href="https://warpcast.com/~/channel/onchaincoin" target="_blank">
+          Warpcast
+        </a>
+        <a onClick={scrollTo}>Airdrop</a>
+        <a href="#" target="_blank">
+          Buy $onchain
+        </a>
       </div>
       <img
         className={styles.header__mob}
-        src="../burger.svg"
+        src="../Burger.svg"
         onClick={() => {
           setMenu(!menu);
         }}

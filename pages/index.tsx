@@ -4,9 +4,10 @@ import Head from "next/head";
 import FirstScreen from "../components/main/firstScreen";
 import Header from "../components/layout/header";
 import SecondScreen from "../components/main/secondScreen";
+import { useRef } from "react";
 
 const Home: NextPage = ((props) => {
-
+  const scrollRef = useRef(null);
   return (
     <div>
       <Head>
@@ -16,9 +17,9 @@ const Home: NextPage = ((props) => {
           content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
         ></meta>
       </Head>
-      <Header/>
+      <Header scrollRef={scrollRef}/>
       <FirstScreen/>
-      <SecondScreen/>
+      <SecondScreen scrollRef={scrollRef}/>
     </div>
   );
 });
