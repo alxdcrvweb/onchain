@@ -5,8 +5,8 @@ const FirstScreen: React.FC = () => {
   return (
     <div className={styles.first__screen}>
       <div>
-        <div className={styles.first__title}>$ONCHAIN IS THE NEXT ONLIN</div>
-        <EnterAddress />
+        <div className={styles.first__title}>$ONCHAIN IS THE NEXT ONLINE</div>
+        {/* <EnterAddress /> */}
       </div>
       <div className={styles.first__text}>
         $onchain is an ERC-20 token on Base, launched in March 2024. $onchain
