@@ -57,3 +57,19 @@
     }
   }
 }
+.button__connect__cont {
+  display: flex;
+  align-items: center;
+  margin-left: 30px;
+  cursor: pointer;
+  img {
+    margin-right: 7px;
+  }
+}
+.button__connect {
+  background: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  border-bottom: 1px solid #000000;
+}

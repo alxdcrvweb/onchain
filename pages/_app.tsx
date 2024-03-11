@@ -1,97 +1,64 @@
 import "../styles/main.scss";
 import type { AppProps } from "next/app";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import "react-toastify/dist/ReactToastify.css";
 import React, { Suspense } from "react";
-import useDarkMode from "use-dark-mode";
-import "@rainbow-me/rainbowkit/styles.css";
-import {
-  argentWallet,
-  trustWallet,
-  ledgerWallet,
-} from "@rainbow-me/rainbowkit/wallets";
-import {
-  connectorsForWallets,
-  getDefaultWallets,
-  RainbowKitProvider,
-} from "@rainbow-me/rainbowkit";
-import { configureChains, createConfig, WagmiConfig } from "wagmi";
-import { bscTestnet, base, goerli } from "wagmi/chains";
-import { publicProvider } from "wagmi/providers/public";
-import { ToastContainer } from "react-toastify";
-import Wrapper from "../components/layout/wrapper";
 import "../components/polyfills";
-import { SocketContext, socket } from "../utils/socket";
-import { isDevelopment } from "../utils/config";
+import "@rainbow-me/rainbowkit/styles.css";
+import { RainbowKitProvider } from "@rainbow-me/rainbowkit";
+import { base } from "wagmi/chains";
+import { ToastContainer } from "react-toastify";
+import "../components/polyfills";
 import Head from "next/head";
-let darkMode;
-const { chains, publicClient, webSocketPublicClient } = configureChains(
-  [base, ...(isDevelopment ? [bscTestnet] : [])],
-  [publicProvider()]
-);
 
-const projectId = "8271a5dee2c5981640ad5d12b20132af";
-const { wallets } = getDefaultWallets({
-  appName: "zoo",
-  projectId,
-  chains,
-});
-const demoAppInfo = {
-  appName: "zoo",
-};
-
-const connectors = connectorsForWallets([
-  ...wallets,
-  {
-    groupName: "Other",
-    wallets: [
-      argentWallet({ projectId, chains }),
-      trustWallet({ projectId, chains }),
-      ledgerWallet({ projectId, chains }),
-    ],
-  },
-]);
+import { WagmiProvider, createConfig, http } from "wagmi";
+import { QueryClient } from "@tanstack/query-core";
+//@ts-ignore
+import { QueryClientProvider } from "@tanstack/react-query"
+// import { SessionProvider, getCsrfToken } from "next-auth/react";
 const wagmiConfig = createConfig({
-  autoConnect: true,
-  connectors,
-  publicClient,
-  webSocketPublicClient,
+  chains: [base],
+  transports: {
+    [base.id]: http(),
+  },
 });
-function MyApp({ Component, pageProps }: AppProps) {
+// export async function getServerSideProps(context: any) {
+//   const csrfToken = await getCsrfToken(context);
+//   return { props: { csrfToken } };
+// }
+const queryClient = new QueryClient();
+function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   const AnyComponent = Component as any;
+  console.log(pageProps);
   const [loading, setLoading] = useState(false);
   // try reconnect to web3
   useEffect(() => {
     setLoading(true);
   }, []);
-  if (typeof document !== `undefined`) {
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    darkMode = useDarkMode(false, { element: document.documentElement });
-  }
   return (
     <>
       {loading ? (
-        <SocketContext.Provider value={socket}>
-            <WagmiConfig config={wagmiConfig}>
-              <RainbowKitProvider appInfo={demoAppInfo} chains={chains}>
-                <Suspense fallback={<h1>Loading posts...</h1>}>
-                  {/* <Rotate /> */}
-                  <Head>
-                    <meta
-                      name="viewport"
-                      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
-                    ></meta>
-                  </Head>
-                  {/* <Wrapper> */}
-                    <AnyComponent {...pageProps} />
-                  {/* </Wrapper> */}
-                  <ToastContainer style={{ zIndex: 10000000000 }} />
-                  {/* <ModalsContainer /> */}
-                </Suspense>
-              </RainbowKitProvider>
-            </WagmiConfig>
-        </SocketContext.Provider>
+        <WagmiProvider config={wagmiConfig}>
+          <QueryClientProvider client={queryClient}>
+            <RainbowKitProvider>
+              <Suspense fallback={<h1>Loading posts...</h1>}>
+                {/* <Rotate /> */}
+                <Head>
+                  <meta
+                    name="viewport"
+                    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+                  ></meta>
+                </Head>
+
+                <AnyComponent {...pageProps} />
+
+                <ToastContainer style={{ zIndex: 10000000000 }} />
+                {/* <ModalsContainer /> */}
+              </Suspense>
+            </RainbowKitProvider>
+          </QueryClientProvider>
+        </WagmiProvider>
       ) : (
         <></>
       )}
