@@ -30,7 +30,6 @@ const wagmiConfig = createConfig({
 const queryClient = new QueryClient();
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   const AnyComponent = Component as any;
-  console.log(pageProps);
   const [loading, setLoading] = useState(false);
   // try reconnect to web3
   useEffect(() => {
