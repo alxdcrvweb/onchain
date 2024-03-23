@@ -13,7 +13,7 @@ const EnterAddress = () => {
   const [points, setPoints] = useState(0);
   const [boost, setBoost] = useState(0);
   const [loading, setLoading] = useState(false);
-  const [updated, setUpdated] = useState(false);
+  const [updatable, setUpdatable] = useState(false);
   const check = (score: number | undefined) => {
     if (score) {
       return score;
@@ -26,10 +26,16 @@ const EnterAddress = () => {
     if (isAddress(currentAddress)) {
       try {
         const res = await axios.get(
-          "https://db.onchaincoin.io/api/site/get?address=" + currentAddress
+          "https://score.onchaincoin.io/api/site/get?address=" + currentAddress
         );
         console.log(res.data.docs[0]);
-        setUpdated(res.data.docs[0].shouldBeUpdated);
+        const getTimestamp = (timestamp: string) => {
+          const date = Date.parse(timestamp) + 24 * 60 * 60 * 1000;
+          return date;
+        };
+        const update = getTimestamp(res.data.docs[0].lastUpdate);
+        const now = Date.now();
+        setUpdatable(update - now < 0);
         setPoints(
           check(res.data.docs[0].farcasterNativeScore) +
             check(res.data.docs[0].rawScore)
@@ -52,12 +58,12 @@ const EnterAddress = () => {
     if (isAddress(currentAddress)) {
       try {
         const res = await axios.get(
-          "https://db.onchaincoin.io/api/site/update?address=" + currentAddress
+          "https://score.onchaincoin.io/api/site/update?address=" + currentAddress
         );
         setLoading(true);
       } catch (e) {
         console.log(e);
-        toast.error("Error while getting points from db");
+        toast.error("Updating error");
       }
 
       // setAddress(currentAddress);
@@ -108,7 +114,7 @@ const EnterAddress = () => {
                   total score: {points + (points / 100) * boost} $onchain
                 </div>
               </div>
-              {updated && (
+              {updatable && (
                 <button className={style.update__score} onClick={updateScore}>
                   Update Score
                 </button>
@@ -124,7 +130,7 @@ const EnterAddress = () => {
           )}
 
           <div className={style.input__row}>
-            <div
+            {/* <div
               // target="_blank"
               className={classNames(
                 style.input__join,
@@ -134,7 +140,7 @@ const EnterAddress = () => {
             >
               claim <img src="/arrow.svg" />
             </div>
-            <ConnectButtonCustom />
+            <ConnectButtonCustom /> */}
           </div>
         </div>
       )}
